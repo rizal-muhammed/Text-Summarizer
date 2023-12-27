@@ -1,0 +1,7 @@
+artifacts_root : artifacts
+
+data_ingestion:
+  root_dir: artifacts/data_ingestion
+  destination_folder: artifacts/data_ingestion/data
+  filename: samsum
+  miscellaneous_folder: artifacts/data_ingestion/miscellaneous
