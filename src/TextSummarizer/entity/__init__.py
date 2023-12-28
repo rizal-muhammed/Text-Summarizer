@@ -7,3 +7,9 @@ class DataIngestionConfig:
     destination_folder: Path
     filename: str
     miscellaneous_folder: Path
+
+@dataclass(frozen=True)
+class DataTransformationConfig:
+    root_dir: Path
+    data_path: Path
+    tokenizer_name: Path

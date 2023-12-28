@@ -1,7 +1,8 @@
 from pathlib import Path
 from TextSummarizer.constants import CONFIG_FILE_PATH, PARAMS_FILE_PATH, SECRETS_FILE_PATH
 from TextSummarizer.utils import common
-from TextSummarizer.entity import (DataIngestionConfig)
+from TextSummarizer.entity import (DataIngestionConfig,
+                                   DataTransformationConfig)
 
 
 class ConfigurationManager:
@@ -18,6 +19,8 @@ class ConfigurationManager:
     def get_data_ingestion_config(self) -> DataIngestionConfig:
         config = self.config.data_ingestion
 
+        common.create_directories([config.root_dir])
+
         data_ingestion_config = DataIngestionConfig(
             root_dir=config.root_dir,
             destination_folder=config.destination_folder,
@@ -26,3 +29,16 @@ class ConfigurationManager:
         )
     
         return data_ingestion_config
+    
+    def get_data_transformation_config(self) -> DataTransformationConfig:
+        config = self.config.data_transformation
+
+        common.create_directories([config.root_dir])
+
+        data_transformation_config = DataTransformationConfig(
+            root_dir=Path(config.root_dir),
+            data_path=Path(config.data_path),
+            tokenizer_name=Path(config.tokenizer_name),
+        )
+
+        return data_transformation_config

@@ -5,3 +5,8 @@ data_ingestion:
   destination_folder: artifacts/data_ingestion/data
   filename: samsum
   miscellaneous_folder: artifacts/data_ingestion/miscellaneous
+
+data_transformation:
+  root_dir: artifacts/data_transformation
+  data_path: artifacts/data_ingestion/data
+  tokenizer_name: google/pegasus-cnn_dailymail
