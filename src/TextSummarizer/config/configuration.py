@@ -2,7 +2,8 @@ from pathlib import Path
 from TextSummarizer.constants import CONFIG_FILE_PATH, PARAMS_FILE_PATH, SECRETS_FILE_PATH
 from TextSummarizer.utils import common
 from TextSummarizer.entity import (DataIngestionConfig,
-                                   DataTransformationConfig)
+                                   DataTransformationConfig,
+                                   DataPreprocessingConfig)
 
 
 class ConfigurationManager:
@@ -38,7 +39,20 @@ class ConfigurationManager:
         data_transformation_config = DataTransformationConfig(
             root_dir=Path(config.root_dir),
             data_path=Path(config.data_path),
-            tokenizer_name=Path(config.tokenizer_name),
         )
 
         return data_transformation_config
+    
+    def get_data_preprocessing_config(self) -> DataPreprocessingConfig:
+        config = self.config.data_preprocessing
+
+        common.create_directories([config.root_dir])
+
+        data_preprocessing_config = DataPreprocessingConfig(
+            root_dir=Path(config.root_dir),
+            data_path=Path(config.data_path),
+            destination_path=Path(config.destination_path),
+            tokenizer_name=Path(config.tokenizer_name),
+        )
+
+        return data_preprocessing_config

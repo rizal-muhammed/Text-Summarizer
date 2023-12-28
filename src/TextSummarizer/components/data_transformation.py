@@ -1,7 +1,6 @@
 import os
 import pandas as pd
 from datasets import load_dataset
-from transformers import AutoTokenizer
 
 from TextSummarizer.logging import logger
 from TextSummarizer import CustomErrorInvalidSplit
@@ -13,7 +12,6 @@ class DataTransformation:
     def __init__(self,
                  config:DataTransformationConfig) -> None:
         self.config = config
-        self.tokenizer = AutoTokenizer.from_pretrained(config.tokenizer_name)
     
     def load_samsum_dataset(self, split="train"):
         """
