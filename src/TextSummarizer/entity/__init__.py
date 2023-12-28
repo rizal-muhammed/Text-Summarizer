@@ -12,12 +12,6 @@ class DataIngestionConfig:
 class DataTransformationConfig:
     root_dir: Path
     data_path: Path
-
-@dataclass(frozen=True)
-class DataPreprocessingConfig:
-    root_dir: Path
-    data_path: Path
-    destination_path: Path
     tokenizer_name: Path
 
 @dataclass(frozen=True)
@@ -35,6 +29,6 @@ class ModelTrainerParams:
     weight_decay: float
     logging_steps: int
     evaluation_strategy: str
-    eval_steps: str
+    eval_steps: int
     save_steps: float
     gradient_accumulation_steps: int

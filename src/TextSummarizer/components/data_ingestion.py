@@ -11,8 +11,6 @@ class DataIngestion:
     def __init__(self,
                  config:DataIngestionConfig) -> None:
         self.config = config
-
-        common.create_directories([config.root_dir])
     
     def data_ingestion(self):
         """
@@ -60,11 +58,6 @@ class DataIngestion:
             for split in splits:
                 dataset = load_dataset(self.config.filename, split=split)
                 dataset.to_csv(os.path.join(destination_folder, str(split)+".csv"))
-
-
-
-            
-
 
         except Exception as e:
             logger.exception(f"""Exception during data ingestion.

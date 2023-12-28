@@ -3,7 +3,6 @@ from TextSummarizer.constants import CONFIG_FILE_PATH, PARAMS_FILE_PATH, SECRETS
 from TextSummarizer.utils import common
 from TextSummarizer.entity import (DataIngestionConfig,
                                    DataTransformationConfig,
-                                   DataPreprocessingConfig,
                                    ModelTrainerConfig,
                                    ModelTrainerParams)
 
@@ -41,23 +40,10 @@ class ConfigurationManager:
         data_transformation_config = DataTransformationConfig(
             root_dir=Path(config.root_dir),
             data_path=Path(config.data_path),
-        )
-
-        return data_transformation_config
-    
-    def get_data_preprocessing_config(self) -> DataPreprocessingConfig:
-        config = self.config.data_preprocessing
-
-        common.create_directories([config.root_dir])
-
-        data_preprocessing_config = DataPreprocessingConfig(
-            root_dir=Path(config.root_dir),
-            data_path=Path(config.data_path),
-            destination_path=Path(config.destination_path),
             tokenizer_name=Path(config.tokenizer_name),
         )
 
-        return data_preprocessing_config
+        return data_transformation_config
     
     def get_model_trainer_config(self) -> ModelTrainerConfig:
         config = self.config.model_trainer
@@ -83,7 +69,7 @@ class ConfigurationManager:
             weight_decay=float(params.weight_decay),
             logging_steps=int(params.logging_steps),
             evaluation_strategy=str(params.evaluation_strategy),
-            eval_steps=str(params.eval_steps),
+            eval_steps=int(params.eval_steps),
             save_steps=float(params.save_steps),
             gradient_accumulation_steps=int(params.gradient_accumulation_steps),
         )

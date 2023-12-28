@@ -94,9 +94,12 @@ class DataPreprocessing:
             validation_dataset = self.load_samsum_dataset(split="validation")
             test_dataset = self.load_samsum_dataset(split="test")
 
-            train_dataset_pt = train_dataset.map(self.convert_examples_to_features, batched=True)
-            validation_dataset_pt = validation_dataset.map(self.convert_examples_to_features, batched=True)
-            test_dataset_pt = test_dataset.map(self.convert_examples_to_features, batched=True)
+            train_dataset_pt = train_dataset.map(self.convert_examples_to_features, 
+                                                 batched=True)
+            validation_dataset_pt = validation_dataset.map(self.convert_examples_to_features, 
+                                                           batched=True)
+            test_dataset_pt = test_dataset.map(self.convert_examples_to_features,
+                                                batched=True)
 
             common.create_directories([self.config.destination_path])
             train_dataset_pt.to_csv(os.path.join(self.config.destination_path, "train.csv"))
