@@ -3,7 +3,9 @@ from TextSummarizer.constants import CONFIG_FILE_PATH, PARAMS_FILE_PATH, SECRETS
 from TextSummarizer.utils import common
 from TextSummarizer.entity import (DataIngestionConfig,
                                    DataTransformationConfig,
-                                   DataPreprocessingConfig)
+                                   DataPreprocessingConfig,
+                                   ModelTrainerConfig,
+                                   ModelTrainerParams)
 
 
 class ConfigurationManager:
@@ -56,3 +58,34 @@ class ConfigurationManager:
         )
 
         return data_preprocessing_config
+    
+    def get_model_trainer_config(self) -> ModelTrainerConfig:
+        config = self.config.model_trainer
+
+        common.create_directories([config.root_dir])
+
+        model_trainer_config = ModelTrainerConfig(
+            root_dir=Path(config.root_dir),
+            data_path=Path(config.data_path),
+            model_checkpoint=Path(config.model_checkpoint),
+        )
+
+        return model_trainer_config
+    
+    def get_model_trainer_params(self) -> ModelTrainerParams:
+        params = self.params.model_trainer
+
+        model_trainer_params = ModelTrainerParams(
+            num_train_epochs=int(params.num_train_epochs),
+            warmup_steps=int(params.warmup_steps),
+            per_device_train_batch_size=int(params.per_device_train_batch_size),
+            per_device_eval_batch_size=int(params.per_device_eval_batch_size),
+            weight_decay=float(params.weight_decay),
+            logging_steps=int(params.logging_steps),
+            evaluation_strategy=str(params.evaluation_strategy),
+            eval_steps=str(params.eval_steps),
+            save_steps=float(params.save_steps),
+            gradient_accumulation_steps=int(params.gradient_accumulation_steps),
+        )
+
+        return model_trainer_params
